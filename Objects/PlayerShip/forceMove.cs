@@ -39,7 +39,7 @@ public class forceMove : MonoBehaviour
     public Sprite Sprite2;
     public Sprite Sprite3;
     int i = 0;
-
+    public float impactMagnitude; 
 
 
 
@@ -51,6 +51,7 @@ public class forceMove : MonoBehaviour
 
     void FixedUpdate()
     { 
+      SetStartingVelovityVector(true);
 	    GetInput();
         ChangeSprite();
         PlanetGravityPull();
@@ -161,9 +162,18 @@ public class forceMove : MonoBehaviour
         if (i>=30)
         {i=0;}
             i++;
-
-
+          
         }
+        
+         public float SetStartingVelovityVector(bool set)
+         {
+           if set == true;
+           {
+           impactMagnitude = shipRigidBody.velocity.magnitude()  
+           }
+           return impactMagnitude;
+           
+         }
         
     }
 

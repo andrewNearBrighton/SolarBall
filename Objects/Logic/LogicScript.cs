@@ -4,22 +4,24 @@ using UnityEngine;
 
 public class LogicScript : MonoBehaviour
 {
-    private int player1score;
-    private int player2score;
+    private int player1score = 0;
+    private int player2score = 0;
     // private int gameTimeOut;
 
 
-    int player1Goal()
+    private int player1Goal(int scoreToAdd)
     {
-        player1score += 1;
+        player1score += scoreToAdd;
         return player1score;
     }
 
-    int player2Goal()
+    private int player2Goal(int scoreToAdd)
     {
-        player2score += 1;
+        player2score += scoreToAdd;
         return player2score;
     }
+    
+    
     /*
     bool timeOut ()
     {
