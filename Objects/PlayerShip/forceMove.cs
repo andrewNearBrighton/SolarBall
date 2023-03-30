@@ -7,39 +7,24 @@ public class forceMove : MonoBehaviour
     public Rigidbody2D shipRigidBody;
     bool forwardInput;
     public float thrustForce = 2;
-    float rotateInput;
-
     public float rotationSpeed = 2;
-
     public float maxVelocity;
     Vector3 currentVelocity;
-    float currentVelocitySqrMag;
-
     public Transform shipTransform;
-
     Vector3 dummyVelocity;
-    float dummyVelocitySqrMag;
-
-
     public float sunGravityForce;
-
     public Transform SunTransform;
-    public Transform PlanetTransform;
-    public float planetGravityForce;
-
+    public float planetGravityForce, impactMagnitude;
     Vector3 GravityVector;
-    float distanceFromSun;
-
+    float distanceFromSun, distanceFromPlanet, dummyVelocitySqrMag, rotateInput;
     Vector3 PlanetGravityVector;
-    float distanceFromPlanet;
-
     public SpriteRenderer SpriteRenderer;
-    public Sprite IdleSprite;
-    public Sprite Sprite1;
-    public Sprite Sprite2;
-    public Sprite Sprite3;
+    public Sprite IdleSprite, Sprite1, Sprite2, Sprite3;
+    public GameObject[] PlanetsArray;
+
+
     int i = 0;
-    public float impactMagnitude; 
+
 
 
 
@@ -51,7 +36,7 @@ public class forceMove : MonoBehaviour
 
     void FixedUpdate()
     { 
-      SetStartingVelovityVector(true);
+        SSVV(true);
 	    GetInput();
         ChangeSprite();
         PlanetGravityPull();
@@ -128,12 +113,17 @@ public class forceMove : MonoBehaviour
 
     void PlanetGravityPull()
     {
-        PlanetGravityVector = shipTransform.position - PlanetTransform.position;
-        distanceFromPlanet = PlanetGravityVector.magnitude;
-        PlanetGravityVector.Normalize();
-        PlanetGravityVector = PlanetGravityVector * planetGravityForce;
-        PlanetGravityVector = PlanetGravityVector * (1 / (distanceFromPlanet * distanceFromPlanet * distanceFromPlanet));
-        shipRigidBody.AddForce(PlanetGravityVector * -1);
+        PlanetsArray = GameObject.FindGameObjectsWithTag("Planet");
+        foreach (GameObject planetPrefab in PlanetsArray)
+        {
+            PlanetGravityVector = shipTransform.position - planetPrefab.transform.position;
+            distanceFromPlanet = PlanetGravityVector.magnitude;
+            PlanetGravityVector.Normalize();
+            PlanetGravityVector = PlanetGravityVector * planetGravityForce * (1 / (distanceFromPlanet * distanceFromPlanet * distanceFromPlanet));
+            shipRigidBody.AddForce(PlanetGravityVector * -1);
+            Debug.Log(planetPrefab.transform.position.x);
+        }
+        
     }
 
 
@@ -141,41 +131,42 @@ public class forceMove : MonoBehaviour
 
     void ChangeSprite()
     {
-        if (forwardInput ==  true)
+        if (forwardInput == true)
         {
-           animate();
+            animate();
         }
         else
         {
             SpriteRenderer.sprite = IdleSprite;
         }
 
-       void animate()
+        void animate()
         {
 
-        if (i < 10)
-             {SpriteRenderer.sprite = Sprite1;}
-        if (i >= 10 && i < 20 )
-             {SpriteRenderer.sprite = Sprite2;}
-                if (i >= 20 && i < 30)
-             {SpriteRenderer.sprite = Sprite2;}
-        if (i>=30)
-        {i=0;}
+            if (i < 100)
+            { SpriteRenderer.sprite = Sprite1; }
+            if (i >= 100 && i < 200)
+            { SpriteRenderer.sprite = Sprite2; }
+            if (i >= 200 && i < 300)
+            { SpriteRenderer.sprite = Sprite3; }
+            if (i >= 300)
+            { i = 0; }
             i++;
-          
         }
+
+    }
         
-         public float SetStartingVelovityVector(bool set)
+        float SSVV(bool Set)
          {
-           if set == true;
+           if (Set == true)
            {
-           impactMagnitude = shipRigidBody.velocity.magnitude()  
+                impactMagnitude = shipRigidBody.velocity.magnitude;  
            }
            return impactMagnitude;
            
          }
         
-    }
+    
 
 
 }

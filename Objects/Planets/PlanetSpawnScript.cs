@@ -9,9 +9,9 @@ public class PlanetSpawnScript : MonoBehaviour
 
     void Start()
     {
-        noOfPlanets = (int) Random.Range(1,6):
+        noOfPlanets = (int)Random.Range(1, 6);
         
-        for (i=1, i<= noOfPlanets, i++)
+        for (int i=1; i<= noOfPlanets; i++)
         {
         var startingPosition = new Vector3(Random.Range(-6f, 6f), Random.Range(-6f, 6f), 0);
 

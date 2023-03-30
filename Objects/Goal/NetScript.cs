@@ -6,26 +6,25 @@ public class NetScript : MonoBehaviour
 {
     public GameObject Sun;
     public float orbitSpeed;
-    public RigidBody2d Goal;
-    public GameObject Logic;
+    public LogicScript Logic;
 
     // Start is called before the first frame update
     void Start()
     {
-        Logic = GameObject.FindgameObjectWithTag("Logic");
+        Logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicScript>();
     }
 
     // Update is called once per frame
     void Update()
     {
         transform.RotateAround(Sun.transform.position, new Vector3(0, 0, 1), orbitSpeed * Time.deltaTime);
-        
-        
-        private void OnCollisionEnter2D()
-        if colliding object layer == 3
+    }
+
+    void OnTriggerEnter2D(Collider2D Collision)
+    {
+        if (Collision.gameObject.layer == 3)
         {
-          Logic.Script.LogicScript.Player1Goal(1);
-          
+            Logic.Player1Goal(1);
         }
     }
 }
