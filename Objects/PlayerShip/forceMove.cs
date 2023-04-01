@@ -9,7 +9,6 @@ public class forceMove : MonoBehaviour
     public float thrustForce = 2;
     public float rotationSpeed = 2;
     public float maxVelocity;
-    Vector3 currentVelocity;
     public Transform shipTransform;
     Vector3 dummyVelocity;
     public float sunGravityForce;
@@ -21,6 +20,7 @@ public class forceMove : MonoBehaviour
     public SpriteRenderer SpriteRenderer;
     public Sprite IdleSprite, Sprite1, Sprite2, Sprite3;
     public GameObject[] PlanetsArray;
+    public int playerHealth;
 
 
     int i = 0;
@@ -36,22 +36,11 @@ public class forceMove : MonoBehaviour
 
     void FixedUpdate()
     { 
-        SSVV(true);
-	    GetInput();
+        SetShipImpactSpeed();
+	GetInput();
         ChangeSprite();
         PlanetGravityPull();
         SunGravityPull();
-
-
-        currentVelocity = shipRigidBody.velocity;
-
-
-
-
-        shipRigidBody.AddTorque (rotateInput * rotationSpeed * -1);
-
-
-
     }
 
   //gets forward + steering inputs, applies steering input
@@ -59,13 +48,13 @@ public class forceMove : MonoBehaviour
 	void GetInput()
 	{
         rotateInput = Input.GetAxis("Horizontal"); 
-        forwardInput = Input.GetButton("Jump");
+        forwardInput = Input.GetAxis("Vertical");
 	        
         shipRigidBody.AddTorque (rotateInput * rotationSpeed * -1);
 	
-	if (forwardInput == true)
+	if (forwardInput > 0.1f)
        		 {
-            	OverMaxVelocity();
+            	ForwardThrust();
        		 }
 
 	}
@@ -76,7 +65,7 @@ public class forceMove : MonoBehaviour
     // at top speed.
     // Try getting thrust vector relative to velocity vector and using that to  rotate velocity vector.
     //
-
+/*
     void OverMaxVelocity()
 
     {
@@ -90,12 +79,17 @@ public class forceMove : MonoBehaviour
             ForwardThrust();
         }
     }
-
+*/
     // actually produces forward thrust
 
     void ForwardThrust()
     {
         shipRigidBody.AddForce(transform.up * thrustForce);
+	if (shipRigidBody.velocity.magnitude > 6)
+	{
+		shipRigidBody.velocity.Normalise();
+		shipRigidBody.velocity = shipRigidBody.velocity * 6;
+	}
 
     }
 
@@ -142,7 +136,6 @@ public class forceMove : MonoBehaviour
 
         void animate()
         {
-
             if (i < 100)
             { SpriteRenderer.sprite = Sprite1; }
             if (i >= 100 && i < 200)
@@ -152,21 +145,19 @@ public class forceMove : MonoBehaviour
             if (i >= 300)
             { i = 0; }
             i++;
-        }
+       	}
 
-    }
+ 	   }
         
-        float SSVV(bool Set)
+        void  SetShipImpactSpeed()
          {
-           if (Set == true)
-           {
                 impactMagnitude = shipRigidBody.velocity.magnitude;  
-           }
-           return impactMagnitude;
-           
          }
         
-    
-
+        float  GetShipImpactSpeed()
+         {
+		 return impactMagnitude;
+	 }
+ 
 
 }
