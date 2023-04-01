@@ -38,15 +38,14 @@ public class forceMove : MonoBehaviour
     { 
         SSVV(true);
 	    GetInput();
+
+        //move animation section into Update() to avoid flicker bug
         ChangeSprite();
         PlanetGravityPull();
         SunGravityPull();
 
 
         currentVelocity = shipRigidBody.velocity;
-
-
-
 
         shipRigidBody.AddTorque (rotateInput * rotationSpeed * -1);
 
