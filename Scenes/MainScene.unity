@@ -765,6 +765,7 @@ MonoBehaviour:
   Sprite2: {fileID: 21300000, guid: 56aa8215d63975844bf040ac1119a214, type: 3}
   Sprite3: {fileID: 21300000, guid: 99dcf24f6ccd1434bba1064647067c38, type: 3}
   PlanetsArray: []
+  playerHealth: 0
 --- !u!70 &806059928
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -1542,6 +1543,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Planet
       objectReference: {fileID: 0}
+    - target: {fileID: 2206763974902270697, guid: 3a7787089a18c664fb4d21e261347fa2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 2206763974902270698, guid: 3a7787089a18c664fb4d21e261347fa2, type: 3}
       propertyPath: spinSpeed
       value: 4
@@ -1572,7 +1577,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2206763975269273907, guid: 3a7787089a18c664fb4d21e261347fa2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 2206763975269273907, guid: 3a7787089a18c664fb4d21e261347fa2, type: 3}
       propertyPath: m_LocalRotation.w
