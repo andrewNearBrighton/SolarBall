@@ -11,6 +11,7 @@ public class NetScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Sun = GameObject.FindGameObjectWithTag("Sun");
         Logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicScript>();
     }
 

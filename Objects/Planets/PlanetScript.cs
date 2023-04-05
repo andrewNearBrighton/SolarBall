@@ -8,7 +8,10 @@ public class PlanetScript : MonoBehaviour
 
 
     public GameObject Sun;
+    public GameObject Planet;
     public float orbitSpeed;
+    float distanceFromSun;
+    Vector3 sunVector;
 
 
     // Start is called before the first frame update
@@ -20,7 +23,9 @@ public class PlanetScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.RotateAround(Sun.transform.position, new Vector3 (0,0,1), orbitSpeed * Time.deltaTime);
+        sunVector = Planet.transform.position - Sun.transform.position;
+        distanceFromSun = sunVector.magnitude;
+        transform.RotateAround(Sun.transform.position, new Vector3 (0,0,1), (orbitSpeed/distanceFromSun) * Time.deltaTime);
     }
 
 }

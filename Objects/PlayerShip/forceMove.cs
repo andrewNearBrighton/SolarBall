@@ -13,7 +13,7 @@ public class forceMove : MonoBehaviour
     public Transform shipTransform;
     Vector3 dummyVelocity;
     public float sunGravityForce;
-    public Transform SunTransform;
+    public GameObject SunTransform;
     public float planetGravityForce, impactMagnitude;
     Vector3 GravityVector;
     float distanceFromSun, distanceFromPlanet, dummyVelocitySqrMag, rotateInput;
@@ -38,7 +38,7 @@ public class forceMove : MonoBehaviour
     void FixedUpdate()
     { 
         SetShipImpactSpeed();
-	GetInput();
+	    GetInput();
         ChangeSprite();
         PlanetGravityPull();
         SunGravityPull();
@@ -60,27 +60,6 @@ public class forceMove : MonoBehaviour
 
 	}
 
-
-    // Limits top speed of ship, ship gets uncontrollably fast otherwise
-    // Needs some work as currently unable to steer in when facing forward
-    // at top speed.
-    // Try getting thrust vector relative to velocity vector and using that to  rotate velocity vector.
-    //
-/*
-    void OverMaxVelocity()
-    {
-        dummyVelocity = currentVelocity;
-        dummyVelocity = dummyVelocity + (transform.up * thrustForce);
-        dummyVelocitySqrMag = dummyVelocity.sqrMagnitude;
-        
-        if (dummyVelocitySqrMag < maxVelocity)
-        {
-            ForwardThrust();
-        }
-    }
-*/
-    // actually produces forward thrust
-
     void ForwardThrust()
     {
         shipRigidBody.AddForce(transform.up * thrustForce);
@@ -96,11 +75,12 @@ public class forceMove : MonoBehaviour
 
     void SunGravityPull()
     {
-        GravityVector = shipTransform.position - SunTransform.position;
+        SunTransform = GameObject.FindGameObjectWithTag("Sun");
+        GravityVector = shipTransform.position - SunTransform.transform.position;
         distanceFromSun = GravityVector.magnitude;
 	    GravityVector.Normalize();
         GravityVector= GravityVector * sunGravityForce;
-        GravityVector = GravityVector * (1/(distanceFromSun * distanceFromSun * distanceFromSun));
+        GravityVector = GravityVector * (1/(distanceFromSun * distanceFromSun));
         shipRigidBody.AddForce(GravityVector * -1);
     }
 
@@ -112,9 +92,8 @@ public class forceMove : MonoBehaviour
             PlanetGravityVector = shipTransform.position - planetPrefab.transform.position;
             distanceFromPlanet = PlanetGravityVector.magnitude;
             PlanetGravityVector.Normalize();
-            PlanetGravityVector = PlanetGravityVector * planetGravityForce * (1 / (distanceFromPlanet * distanceFromPlanet * distanceFromPlanet));
+            PlanetGravityVector = PlanetGravityVector * planetGravityForce * (1 / (distanceFromPlanet * distanceFromPlanet));
             shipRigidBody.AddForce(PlanetGravityVector * -1);
-            Debug.Log(planetPrefab.transform.position.x);
         }
         
     }
