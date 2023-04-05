@@ -26,6 +26,12 @@ public class LogicScript : MonoBehaviour
         player2score += scoreToAdd;
         return player2score;
     }
+
+    public void ImpactDamage(GameObject collidingPlayer)
+    {
+        float impactSpeed = collidingPlayer.GetShipImpactSpeed();
+        
+    }
     
     
     /*

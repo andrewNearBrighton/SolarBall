@@ -23,4 +23,11 @@ public class PlanetScript : MonoBehaviour
         transform.RotateAround(Sun.transform.position, new Vector3 (0,0,1), orbitSpeed * Time.deltaTime);
     }
 
+    void OnCollision(GameObject collision)
+    {
+	if (collision.layer == "playerShip")
+	{
+		Logic.ImpactDamage(collision)
+	}
+    }
 }
