@@ -21,25 +21,25 @@ public class SunScript : MonoBehaviour
            Sun.Rotate(0, 0, rotationSpeed);
     }
 
-    void OnTriggerStay (Collider2D collision)
+    void OnTriggerStay2D (Collider2D collisionObject)
         {
-            if (collision.gameObject.layer == "playerShip")
+            if (collisionObject.gameObject.tag == "playerShip")
             {  
-                depthVector = Sun.Transform.Position - collision.gameObject.Transform.Position;
-                depth = depthVector.Magnitude; 
-                SunBurn(collision);
+                Vector3 depthVector = Sun.position - collisionObject.gameObject.transform.position;
+                float depth = depthVector.magnitude; 
+                Sunburn(collisionObject, depth);
             }
         }
 
-    void Sunburn (Collider2D collisionObject)
+    void Sunburn (Collider2D collisionObject, float depth)
         {
             if (depth <= killDepth)
             {
-                Logic.KillPlayer;
+                LogicScript.DestroyPlayer(collisionObject);
             }
             else
             {
-                Logic.Sunburn(depth)
+                LogicScript.SunBurn(depth, collisionObject);
             }
 
         }

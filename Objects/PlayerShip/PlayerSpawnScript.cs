@@ -6,17 +6,34 @@ public class PlayerSpawnScript : MonoBehaviour
 {
     public int playerCount;
     public GameObject ShipPrefab;
+    Vector3 startingPosition;
 
+        void Start()
+        {
+            Debug.Log("start");
+            for (int playerNo = 1; playerNo <= playerCount; playerNo++)
+            {
+                switch (playerNo)
+                {
+                    case 1:
+                    startingPosition = new Vector3(2,-2,-1);
+                    break;
+                    case 2:
+                    startingPosition = new Vector3(-2,2,-1);
+                    break;
+                    case 3:
+                    startingPosition = new Vector3(2,2,-1);
+                    break;
+                    case 4:
+                    startingPosition = new Vector3(-2,-2,-1);
+                    break;
+                    default:
+                    startingPosition = new Vector3(0,0,-1);
+                    break;
+                }
 
-    void Start()
-    {
-        var startingPosition = new Vector3(2,2,-1);
             Instantiate(ShipPrefab, startingPosition, Quaternion.identity);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+            Debug.Log ("Player Spawned");
+        }
     }
 }

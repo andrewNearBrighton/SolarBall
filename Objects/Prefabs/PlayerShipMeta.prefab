@@ -62,7 +62,7 @@ GameObject:
   - component: {fileID: 2539830446783848978}
   m_Layer: 0
   m_Name: PlayerShip
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -183,6 +183,7 @@ MonoBehaviour:
   Sprite3: {fileID: 21300000, guid: 99dcf24f6ccd1434bba1064647067c38, type: 3}
   PlanetsArray: []
   playerHealth: 0
+  playerNumber: 0
 --- !u!70 &2539830446783848979
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

@@ -7,6 +7,8 @@ public class PlanetScript : MonoBehaviour
 
 
 
+    
+    public GameObject Logic;
     public GameObject Sun;
     public GameObject Planet;
     public float orbitSpeed;
@@ -18,6 +20,7 @@ public class PlanetScript : MonoBehaviour
     void Start()
     {
     Sun = GameObject.FindGameObjectWithTag("Sun");
+    Logic =  GameObject.FindGameObjectWithTag("Logic");
     }
 
     // Update is called once per frame
@@ -28,11 +31,12 @@ public class PlanetScript : MonoBehaviour
         transform.RotateAround(Sun.transform.position, new Vector3 (0,0,1), (orbitSpeed/distanceFromSun) * Time.deltaTime);
     }
 
-    void OnCollision(GameObject collision)
+    void OnCollisionEnter2D(Collision2D CollisionObject)
     {
-	if (collision.layer == "playerShip")
+	if (CollisionObject.gameObject.tag == "Player")
 	{
-		Logic.ImpactDamage(collision)
+		Logic.GetComponent<LogicScript>().ImpactDamage(CollisionObject.collider);
+        Debug.Log("Collision");
 	}
     }
 }

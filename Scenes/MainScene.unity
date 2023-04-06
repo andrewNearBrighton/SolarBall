@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59fb14c8af3b41246b16aa1cb19252d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCount: 1
+  playerCount: 3
   ShipPrefab: {fileID: 2539830446586192877, guid: 288b832c2a7420344a0e053213136f58, type: 3}
 --- !u!4 &95042418
 Transform:
@@ -629,6 +629,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationSpeed: 0.1
   Sun: {fileID: 615179917}
+  playerShips: {fileID: 0}
+  killDepth: 0
 --- !u!1 &1030796955
 GameObject:
   m_ObjectHideFlags: 0
@@ -1078,6 +1080,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Score1Counter: {fileID: 206470806}
   Score2Counter: {fileID: 1437081765}
+  Score3Counter: {fileID: 0}
+  Score4Counter: {fileID: 0}
+  player1Health: 0
+  player2Health: 0
+  player3Health: 0
+  player4Health: 0
 --- !u!4 &1701658019
 Transform:
   m_ObjectHideFlags: 0

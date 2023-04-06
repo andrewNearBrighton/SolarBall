@@ -199,6 +199,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e9b59bd38ffa8a49a3bb45ea6ae6332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Logic: {fileID: 0}
   Sun: {fileID: 0}
   Planet: {fileID: 2206763975269273906}
   orbitSpeed: 10
