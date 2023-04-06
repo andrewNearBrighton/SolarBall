@@ -6,7 +6,10 @@ using UnityEngine;
 public class PlayerMain : MonoBehaviour
 {
     public Rigidbody2D shipRigidBody;
-    float forwardInput;
+    bool forwardInput;
+    bool rightInput;
+    bool leftInput;
+    bool boostInput;
     public float thrustForce = 2;
     public float rotationSpeed = 2;
     public float maxVelocity;
@@ -23,17 +26,36 @@ public class PlayerMain : MonoBehaviour
     public GameObject[] PlanetsArray;
     public int playerHealth;
     public int playerNumber;
+    public string forwardButton;
+    public string leftButton;
+    public string rightButton;
 
 
     int i = 0;
 
 
 
-
     // Start is called before the first frame update
+    // sets controls for different players
+    // player 1 is default
     void Start()
     {
+        switch (playerNumber)
+        {
 
+            case 2:
+            forwardButton, leftButton, rightButton = "up","left","right";
+            break;
+            case 3:
+            forwardButton, leftButton, rightButton = "controller1Up","controller1left","controller1right";
+            break;
+            case 4:
+            forwardButton, leftButton, rightButton = "controller2Up","controller2left","controller2right";
+            break;
+            default:
+            forwardButton, leftButton, rightButton = "w","a","d";
+            break;
+        }
     }
 
     void FixedUpdate()
@@ -44,20 +66,28 @@ public class PlayerMain : MonoBehaviour
         PlanetGravityPull();
         SunGravityPull();
     }
-
-  //gets forward + steering inputs, applies steering input
  
 	void GetInput()
 	{
-        rotateInput = Input.GetAxis("Horizontal"); 
-        forwardInput = Input.GetAxis("Vertical");
-	        
-        shipRigidBody.AddTorque (rotateInput * rotationSpeed * -1);
-	
-	if (forwardInput > 0.1f)
-       		 {
-            	ForwardThrust();
-       		 }
+
+	        forwardInput = Input.GetButtonDown(forwardButton);
+            leftInput = Input.GetButtonDown(leftButton);
+            rightInput = Input.GetButtonDown(rightButton);
+
+
+        if leftInput == true;
+        {
+            shipRigidBody.AddTorque (rotationSpeed * -1);
+        }
+        if rightInput == true;
+        {
+            shipRigidBody.AddTorque (rotationSpeed * 1);
+        }
+
+	    if (forwardInput == true)
+       	{
+            ForwardThrust();
+        }
 
 	}
 
