@@ -44,16 +44,24 @@ public class PlayerMain : MonoBehaviour
         {
 
             case 2:
-            forwardButton, leftButton, rightButton = "up","left","right";
+            forwardButton = "up";
+            leftButton = "left";
+            rightButton = "right";
             break;
             case 3:
-            forwardButton, leftButton, rightButton = "controller1Up","controller1left","controller1right";
+            forwardButton = "controller1up";
+            leftButton = "controller1left";
+            rightButton = "controller1right";
             break;
             case 4:
-            forwardButton, leftButton, rightButton = "controller2Up","controller2left","controller2right";
+            forwardButton = "controller2up";
+            leftButton = "controller2left";
+            rightButton = "controller2right";
             break;
             default:
-            forwardButton, leftButton, rightButton = "w","a","d";
+            forwardButton = "w";
+            leftButton = "a";
+            rightButton = "d";
             break;
         }
     }
@@ -177,6 +185,11 @@ public class PlayerMain : MonoBehaviour
         {
             return playerNumber;
         }
- 
+
+        /*public OnCollisionEnter2D()
+        {
+            play collision sound
+        }
+ */
 
 }
