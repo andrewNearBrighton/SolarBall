@@ -35,7 +35,8 @@ public class SunScript : MonoBehaviour
         {
             if (depth <= killDepth)
             {
-                LogicScript.DestroyPlayer(collisionObject);
+                DestroyedPlayer = collisionObject.gameObject;
+                LogicScript.DestroyPlayer(DestroyedPlayer);
             }
             else
             {

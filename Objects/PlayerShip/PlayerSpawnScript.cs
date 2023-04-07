@@ -11,29 +11,37 @@ public class PlayerSpawnScript : MonoBehaviour
         void Start()
         {
             Debug.Log("start");
-            for (int playerNo = 1; playerNo <= playerCount; playerNo++)
+            for (int playerNo = 0; playerNo <= (playerCount-1); playerNo++)
             {
-                switch (playerNo)
-                {
-                    case 1:
-                    startingPosition = new Vector3(2,-2,-1);
-                    break;
-                    case 2:
-                    startingPosition = new Vector3(-2,2,-1);
-                    break;
-                    case 3:
-                    startingPosition = new Vector3(2,2,-1);
-                    break;
-                    case 4:
-                    startingPosition = new Vector3(-2,-2,-1);
-                    break;
-                    default:
-                    startingPosition = new Vector3(0,0,-1);
-                    break;
-                }
+                SpawnPlayer(playerNo);
+
+
+        }
+    }
+
+    SpawnPlayer()
+    {
+         switch (playerNo)
+            {
+                case 0:
+                startingPosition = new Vector3(2,-2,-1);
+                break;
+                case 1:
+                startingPosition = new Vector3(-2,2,-1);
+                break;
+                case 2:
+                startingPosition = new Vector3(2,2,-1);
+                break;
+                case 3:
+                startingPosition = new Vector3(-2,-2,-1);
+                break;
+                default:
+                startingPosition = new Vector3(0,0,-1);
+                break;
+            }
 
             Instantiate(ShipPrefab, startingPosition, Quaternion.identity);
             Debug.Log ("Player Spawned");
-        }
+            LogicScript.ResetHealth(playerNo);
     }
 }

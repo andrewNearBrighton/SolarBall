@@ -43,17 +43,17 @@ public class PlayerMain : MonoBehaviour
         switch (playerNumber)
         {
 
-            case 2:
+            case 1:
             forwardButton = "up";
             leftButton = "left";
             rightButton = "right";
             break;
-            case 3:
+            case 2:
             forwardButton = "controller1up";
             leftButton = "controller1left";
             rightButton = "controller1right";
             break;
-            case 4:
+            case 3:
             forwardButton = "controller2up";
             leftButton = "controller2left";
             rightButton = "controller2right";
@@ -102,11 +102,11 @@ public class PlayerMain : MonoBehaviour
     void ForwardThrust()
     {
         shipRigidBody.AddForce(transform.up * thrustForce);
-	if (shipRigidBody.velocity.magnitude > 6)
-	{
-		shipRigidBody.velocity = shipRigidBody.velocity / shipRigidBody.velocity.magnitude;
-		shipRigidBody.velocity = shipRigidBody.velocity * 6;
-	}
+	    if (shipRigidBody.velocity.magnitude > 6)
+	    {
+		    shipRigidBody.velocity = shipRigidBody.velocity / shipRigidBody.velocity.magnitude;
+		    shipRigidBody.velocity = shipRigidBody.velocity * 6;
+	    }
 
     }
 
@@ -137,54 +137,38 @@ public class PlayerMain : MonoBehaviour
         
     }
 
-
-    //this one's just bad, you need to learn how to use animate properly.
-
     void ChangeSprite()
     {
-        if (forwardInput > 0.5f)
+        if (forwardInput = true)
         {
-            animate();
+            SpriteRenderer.sprite = Sprite1; 
         }
         else
         {
             SpriteRenderer.sprite = IdleSprite;
         }
 
-        void animate()
-        {
-            if (i < 100)
-            { SpriteRenderer.sprite = Sprite1; }
-            if (i >= 100 && i < 200)
-            { SpriteRenderer.sprite = Sprite2; }
-            if (i >= 200 && i < 300)
-            { SpriteRenderer.sprite = Sprite3; }
-            if (i >= 300)
-            { i = 0; }
-            i++;
-       	}
-
- 	   }
+ 	}        
         
-        public void  SetShipImpactSpeed()
-        {
-            impactMagnitude = shipRigidBody.velocity.magnitude;  
-        }
+    public void  SetShipImpactSpeed()
+    {
+        impactMagnitude = shipRigidBody.velocity.magnitude;  
+    }
         
-        public float GetShipImpactSpeed()
-        {
-		    return impactMagnitude;
-	    }
+    public float GetShipImpactSpeed()
+    {
+	    return impactMagnitude;
+	}
 
         public void SetPlayerNumber(int PlayerNumber)
-        {
-            playerNumber = PlayerNumber;
-        }
+    {
+        playerNumber = PlayerNumber;
+    }
 
-        public int GetPlayerNumber()
-        {
-            return playerNumber;
-        }
+    public int GetPlayerNumber()
+    {
+        return playerNumber;
+    }
 
         /*public OnCollisionEnter2D()
         {

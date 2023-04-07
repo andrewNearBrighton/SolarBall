@@ -5,13 +5,14 @@ using UnityEngine.UI;
 
 public class LogicScript : MonoBehaviour
 {
-    private int player1score,player2score,player3score,player4score = 0;
+    private int[] playersScore = new int[4] {0,0,0,0};
+    private bool[] playerRespawning = new bool[4] {false,false,false,false};
     public int maxHealth = 100;
 
     public Text Score1Counter, Score2Counter, Score3Counter, Score4Counter;
-    // private int gameTimeOut;
     
-    public int player1Health, player2Health, player3Health, player4Health =  maxHealth;
+    public int[] playersHealth = new int[4] {maxHealth,maxHealth,maxHealth,maxHealth};
+    private float[] respawnTimers = new float[4] {0,0,0,0};
     GameObject[] = Players;
 
     void Start()
@@ -21,7 +22,11 @@ public class LogicScript : MonoBehaviour
 
     void FixedUpdate()
     {
-        
+        foreach (bool player in playerRespawning)
+        if (player == true;)
+        {
+//////////////////////////////////////////////////////////////////////////////////////
+        }
     }
 
     public int Player1Goal(int scoreToAdd)
@@ -50,28 +55,20 @@ public class LogicScript : MonoBehaviour
     public static void SunBurn(float depth, Collider2D collisionObject)
     {
         int  playerNumber = collisionObject.gameObject.GetComponent<PlayerMain>().playerNumber;
-        switch playerNumber;
-        {
-            case 1:
-            player1Health -= depth;
-            break;
-            case 2:
-            player2Health -= depth;
-            break;
-            case 3:
-            player3Health -= depth;
-            break;
-            case 4:
-            player4Health -= depth;
-            break;
-
-        }
+        playersHealth[playerNumber] -= depth;
     }    
 
-    public static void DestroyPlayer (Collider2D CollisionObject)
+    public static void DestroyPlayer (GameObject DestroyedPlayer)
     {
-        DestroyedPlayer = CollisionObject.gameObject;
+        int destroyedPlayerNo = DestroyedPlayer.GetComponent<PlayerMain>().playerNumber;
         Destroy(DestroyedPlayer);
+        playersScore[destroyedPlayerNo] -= 1;
+        playerRespawning[destroyedPlayerNo] = true;
+    }
+
+    public static void ResetHealth(int playerNo)
+    {
+        playersHealth[playerNo] = maxHealth;
     }
 
 }
