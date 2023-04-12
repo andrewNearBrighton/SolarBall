@@ -5,62 +5,64 @@ using UnityEngine.UI;
 
 public class LogicScript : MonoBehaviour
 {
-    private int[] playersScore = new int[4] {0,0,0,0};
-    private bool[] playerRespawning = new bool[4] {false,false,false,false};
-    public int maxHealth = 100;
+    private static int[] playersScore = new int[4] {0,0,0,0};
+    private static bool[] playerRespawning = new bool[4] {false,false,false,false};
+    public static int maxHealth = 100;
 
-    public Text Score1Counter, Score2Counter, Score3Counter, Score4Counter;
     
-    public int[] playersHealth = new int[4] {maxHealth,maxHealth,maxHealth,maxHealth};
-    private float[] respawnTimers = new float[4] {0,0,0,0};
-    GameObject[] = Players;
+    public static int[] playersHealth = new int[4] {maxHealth,maxHealth,maxHealth,maxHealth};
+    public static float[] respawnTimers = new float[4] {0,0,0,0};
+    public int numberOfPlayers;
+    public int scoreToAdd;
+    public GameObject [] ScoreCounters;
+    public GameObject ScoreSpawner;
 
     void Start()
     {
-
+        ScoreCounters = new GameObject[numberOfPlayers]; 
+        ScoreSpawner.GetComponent<ScoreCounterSpawner>().SpawnCounters();
+    }
+    public void InitialisePlayersScores(int playerNo, GameObject NewCounter)
+    {
+        ScoreCounters[playerNo] = NewCounter;
     }
 
-    void FixedUpdate()
+    public int GetNumberOfPlayers()
     {
+        return numberOfPlayers;
+    }
+ /*   void FixedUpdate()
+
+    
+
+    
         foreach (bool player in playerRespawning)
-        if (player == true;)
+        if (player == true)
         {
 //////////////////////////////////////////////////////////////////////////////////////
         }
     }
 
-    public int Player1Goal(int scoreToAdd)
-    {
-        player1score += scoreToAdd;
-        Debug.Log(player1score.ToString());
-        Score1Counter.text = player1score.ToString();
-        return player1score;
-
-    }
-
-    public int Player2Goal(int scoreToAdd)
-    {
-        player2score += scoreToAdd;
-        Score1Counter.text = player1score.ToString();
-        return player2score;
-    }
+*/
+    
 
     public void ImpactDamage(Collider2D collision)
     {
         float Impact = collision.gameObject.GetComponent<PlayerMain>().GetShipImpactSpeed();
-        player1Health = player1Health - (int) Impact;
-        Debug.Log(Impact.ToString());
+        int playerNo = collision.gameObject.GetComponent<PlayerMain>().GetPlayerNumber();
+        playersHealth[playerNo] -= (int) Impact;
+        int health = playersHealth[playerNo];
     }
 
     public static void SunBurn(float depth, Collider2D collisionObject)
     {
-        int  playerNumber = collisionObject.gameObject.GetComponent<PlayerMain>().playerNumber;
-        playersHealth[playerNumber] -= depth;
+        int  playerNumber = collisionObject.gameObject.GetComponentInChildren<PlayerMain>().playerNumber;
+        playersHealth[playerNumber] -= (int) depth;
     }    
 
     public static void DestroyPlayer (GameObject DestroyedPlayer)
     {
-        int destroyedPlayerNo = DestroyedPlayer.GetComponent<PlayerMain>().playerNumber;
+        int destroyedPlayerNo = DestroyedPlayer.GetComponentInChildren<PlayerMain>().playerNumber;
         Destroy(DestroyedPlayer);
         playersScore[destroyedPlayerNo] -= 1;
         playerRespawning[destroyedPlayerNo] = true;
@@ -69,6 +71,12 @@ public class LogicScript : MonoBehaviour
     public static void ResetHealth(int playerNo)
     {
         playersHealth[playerNo] = maxHealth;
+    }
+
+    public void AddPlayerScore(int playerNumber)
+    {
+        playersScore[playerNumber] +=scoreToAdd;
+        ScoreCounters[playerNumber].GetComponent<Text>().text = playersScore[playerNumber].ToString();
     }
 
 }

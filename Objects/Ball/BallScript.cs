@@ -21,22 +21,22 @@ public class BallScript : MonoBehaviour
         BallPosX = Ball.transform.position.x;
         BallPosY = Ball.transform.position.y;
 
-        if (BallPosX >= 10.5)
+        if (BallPosX >= 9.2)
         {
             Ball.transform.position = Ball.transform.position + new Vector3((BallPosX - 0.5f) * -2f, 0f, 0f);
         }
 
-        if (BallPosX <= -10.5)
+        if (BallPosX <= -9.2)
         {
             Ball.transform.position = Ball.transform.position + new Vector3((BallPosX + 0.5f) * -2f, 0f, 0f);
         }
 
-        if (BallPosY >= 6)
+        if (BallPosY >= 5.8)
         {
             Ball.transform.position = Ball.transform.position + new Vector3(0f, (BallPosY - 0.5f) * -2f, 0f);
         }
 
-        if (BallPosY <= -6)
+        if (BallPosY <= -5.8)
         {
             Ball.transform.position = Ball.transform.position + new Vector3(0f, (BallPosY + 0.5f) * -2f, 0f);
         }

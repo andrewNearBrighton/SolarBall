@@ -12,38 +12,48 @@ public class TargetSpawnScript : MonoBehaviour
     Vector3 startPosition;
    public int distanceFromSun;
    public GameObject Sun;
+
+   public GameObject NewGoal;
     SpriteRenderer sprite;
+
+    public LogicScript Logic;
     void Start()
     {
+         Logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicScript>(); 
+         noOfPlayers = Logic.GetNumberOfPlayers();
     
-    for (int i=1; i<= noOfPlayers; i++)
-    {
-
-        if (i == 1)
+        for (int i=1; i<= noOfPlayers; i++)
         {
-         startPosition = Vector3.left * distanceFromSun;  
-        Instantiate(TargetPrefab1, startPosition, Quaternion.identity);
-        }
 
-        if (i == 2)
-        {
-         startPosition = Vector3.up * distanceFromSun;  
-        Instantiate(TargetPrefab2, startPosition, Quaternion.identity);
-        }
+            if (i == 1)
+             {
+                startPosition = Vector3.left * distanceFromSun;
+                NewGoal = Instantiate(TargetPrefab1, startPosition, Quaternion.identity);
+                NewGoal.GetComponent<GoalScript>().SetGoalNumber(i-1);
+            }
 
-        if (i == 3)
-        {
-         startPosition = Vector3.right * distanceFromSun;   
-        Instantiate(TargetPrefab3, startPosition, Quaternion.identity);
-        }
+            if (i == 2)
+            {
+                startPosition = Vector3.right * distanceFromSun;  
+                Instantiate(TargetPrefab2, startPosition, Quaternion.identity);
+                NewGoal.GetComponent<GoalScript>().SetGoalNumber(i-1);
+            }
 
-        if (i == 4)
-        {
-         startPosition = Vector3.down * distanceFromSun;   
-        Instantiate(TargetPrefab4, startPosition, Quaternion.identity);
-        }
+            if (i == 3)
+            {
+                startPosition = Vector3.up * distanceFromSun;   
+                Instantiate(TargetPrefab3, startPosition, Quaternion.identity);
+                NewGoal.GetComponent<GoalScript>().SetGoalNumber(i-1);
+            }
 
-    }    
+            if (i == 4)
+            {
+                startPosition = Vector3.down * distanceFromSun;   
+                NewGoal = Instantiate(TargetPrefab4, startPosition, Quaternion.identity);
+                NewGoal.GetComponent<GoalScript>().SetGoalNumber(i-1);
+            }
+
+        }    
     }
 
     // Update is called once per frame

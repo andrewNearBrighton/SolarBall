@@ -96,12 +96,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 7452492030713836504}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b190a6486dbdb1645a3c5937f1203473, type: 3}
+  m_Script: {fileID: 11500000, guid: 5900fcc8f4d28974195392b0c06244a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Sun: {fileID: 0}
-  orbitSpeed: 1
+  orbitSpeed: 0.1
   Logic: {fileID: 0}
+  goalNumber: 0
 --- !u!50 &7452492030713836483
 Rigidbody2D:
   serializedVersion: 4

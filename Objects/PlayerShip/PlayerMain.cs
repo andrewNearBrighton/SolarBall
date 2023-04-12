@@ -9,12 +9,11 @@ public class PlayerMain : MonoBehaviour
     bool forwardInput;
     bool rightInput;
     bool leftInput;
-    bool boostInput;
+ //   bool boostInput;
     public float thrustForce = 2;
     public float rotationSpeed = 2;
     public float maxVelocity;
     public Transform shipTransform;
-    Vector3 dummyVelocity;
     public float sunGravityForce;
     public GameObject SunTransform;
     public float planetGravityForce, impactMagnitude;
@@ -24,14 +23,12 @@ public class PlayerMain : MonoBehaviour
     public SpriteRenderer SpriteRenderer;
     public Sprite IdleSprite, Sprite1, Sprite2, Sprite3;
     public GameObject[] PlanetsArray;
-    public int playerHealth;
     public int playerNumber;
     public string forwardButton;
     public string leftButton;
     public string rightButton;
+    public ParticleSystem ExhaustParticleSystem;
 
-
-    int i = 0;
 
 
 
@@ -49,14 +46,14 @@ public class PlayerMain : MonoBehaviour
             rightButton = "right";
             break;
             case 2:
-            forwardButton = "controller1up";
-            leftButton = "controller1left";
-            rightButton = "controller1right";
+            forwardButton = "joypad1w";
+            leftButton = "joypad1a";
+            rightButton = "joypad1d";
             break;
             case 3:
-            forwardButton = "controller2up";
-            leftButton = "controller2left";
-            rightButton = "controller2right";
+            forwardButton = "joypad2w";
+            leftButton = "joypad2a";
+            rightButton = "joypad";
             break;
             default:
             forwardButton = "w";
@@ -71,30 +68,37 @@ public class PlayerMain : MonoBehaviour
         SetShipImpactSpeed();
 	    GetInput();
         ChangeSprite();
-        PlanetGravityPull();
         SunGravityPull();
+        PlanetGravityPull();
     }
  
 	void GetInput()
 	{
 
-	        forwardInput = Input.GetButtonDown(forwardButton);
-            leftInput = Input.GetButtonDown(leftButton);
-            rightInput = Input.GetButtonDown(rightButton);
+	        forwardInput = Input.GetButton(forwardButton);
+            leftInput = Input.GetButton(leftButton);
+            rightInput = Input.GetButton(rightButton);
 
 
-        if leftInput == true;
-        {
-            shipRigidBody.AddTorque (rotationSpeed * -1);
-        }
-        if rightInput == true;
+        if (leftInput ==true)
         {
             shipRigidBody.AddTorque (rotationSpeed * 1);
+        }
+        if (rightInput == true)
+        {
+            shipRigidBody.AddTorque (rotationSpeed * -1);
         }
 
 	    if (forwardInput == true)
        	{
             ForwardThrust();
+            var emission = ExhaustParticleSystem.emission;
+            emission.enabled = true;
+        }
+        else
+        {
+            var emission = ExhaustParticleSystem.emission;
+            emission.enabled = false; 
         }
 
 	}
@@ -102,10 +106,10 @@ public class PlayerMain : MonoBehaviour
     void ForwardThrust()
     {
         shipRigidBody.AddForce(transform.up * thrustForce);
-	    if (shipRigidBody.velocity.magnitude > 6)
+	    if (shipRigidBody.velocity.magnitude > maxVelocity)
 	    {
 		    shipRigidBody.velocity = shipRigidBody.velocity / shipRigidBody.velocity.magnitude;
-		    shipRigidBody.velocity = shipRigidBody.velocity * 6;
+		    shipRigidBody.velocity = shipRigidBody.velocity * maxVelocity;
 	    }
 
     }
@@ -139,7 +143,7 @@ public class PlayerMain : MonoBehaviour
 
     void ChangeSprite()
     {
-        if (forwardInput = true)
+        if (forwardInput == true)
         {
             SpriteRenderer.sprite = Sprite1; 
         }

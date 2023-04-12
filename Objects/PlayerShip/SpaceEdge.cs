@@ -21,22 +21,22 @@ public class SpaceEdge : MonoBehaviour
         playerPosX = playerShip.transform.position.x;
         playerPosY = playerShip.transform.position.y;
 
-        if (playerPosX >= 10.5)
+        if (playerPosX >= 9.2)
         {
             playerShip.transform.position = playerShip.transform.position + new Vector3((playerPosX-0.5f) * -2f,0f,0f);
         }
 
-        if (playerPosX <= -10.5)
+        if (playerPosX <= -9.2)
         {
             playerShip.transform.position = playerShip.transform.position + new Vector3((playerPosX + 0.5f) * -2f, 0f, 0f);
         }
 
-        if (playerPosY >= 6)
+        if (playerPosY >= 5.8)
         {
             playerShip.transform.position = playerShip.transform.position + new Vector3(0f,(playerPosY - 0.5f) * -2f, 0f);
         }
 
-        if (playerPosY <= -6)
+        if (playerPosY <= -5.8)
         {
             playerShip.transform.position = playerShip.transform.position + new Vector3(0f,(playerPosY + 0.5f) * -2f, 0f);
         }

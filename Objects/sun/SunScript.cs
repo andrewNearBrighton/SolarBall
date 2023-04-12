@@ -10,6 +10,7 @@ public class SunScript : MonoBehaviour
     public Transform Sun;
     public GameObject playerShips;
     public float killDepth;
+    public float depth;
     void Start()
     {
        
@@ -26,16 +27,16 @@ public class SunScript : MonoBehaviour
             if (collisionObject.gameObject.tag == "playerShip")
             {  
                 Vector3 depthVector = Sun.position - collisionObject.gameObject.transform.position;
-                float depth = depthVector.magnitude; 
+                depth = depthVector.magnitude; 
                 Sunburn(collisionObject, depth);
             }
         }
 
-    void Sunburn (Collider2D collisionObject, float depth)
+    void Sunburn (Collider2D collisionObject, float _depth)
         {
-            if (depth <= killDepth)
+            if (_depth <= killDepth)
             {
-                DestroyedPlayer = collisionObject.gameObject;
+                GameObject DestroyedPlayer = collisionObject.gameObject;
                 LogicScript.DestroyPlayer(DestroyedPlayer);
             }
             else
