@@ -20,8 +20,8 @@ public class PlayerMain : MonoBehaviour
     Vector3 GravityVector;
     float distanceFromSun, distanceFromPlanet, dummyVelocitySqrMag, rotateInput;
     Vector3 PlanetGravityVector;
-    public SpriteRenderer SpriteRenderer;
-    public Sprite IdleSprite, Sprite1, Sprite2, Sprite3;
+    //public SpriteRenderer SpriteRenderer;
+    //public Sprite IdleSprite, Sprite1, Sprite2, Sprite3;
     public GameObject[] PlanetsArray;
     public int playerNumber;
     public string forwardButton;
@@ -67,7 +67,7 @@ public class PlayerMain : MonoBehaviour
     { 
         SetShipImpactSpeed();
 	    GetInput();
-        ChangeSprite();
+      //  ChangeSprite();
         SunGravityPull();
         PlanetGravityPull();
     }
@@ -140,7 +140,7 @@ public class PlayerMain : MonoBehaviour
         }
         
     }
-
+/*
     void ChangeSprite()
     {
         if (forwardInput == true)
@@ -152,7 +152,9 @@ public class PlayerMain : MonoBehaviour
             SpriteRenderer.sprite = IdleSprite;
         }
 
- 	}        
+ 	}     
+
+    */   
         
     public void  SetShipImpactSpeed()
     {

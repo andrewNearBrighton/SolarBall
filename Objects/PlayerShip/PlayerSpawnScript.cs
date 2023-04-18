@@ -7,7 +7,7 @@ public class PlayerSpawnScript : MonoBehaviour
     public int playerCount;
     public GameObject ShipPrefab;
     Vector3 startingPosition;
-    Vector4 Color;
+    Vector4 NewColor;
 
     public GameObject Logic;
 
@@ -20,8 +20,6 @@ public class PlayerSpawnScript : MonoBehaviour
             for (int playerNo = 0; playerNo <= (playerCount-1); playerNo++)
             {
                 SpawnPlayer(playerNo);
-
-
         }
     }
 
@@ -31,19 +29,19 @@ public class PlayerSpawnScript : MonoBehaviour
             {
                 case 0:
                 startingPosition = new Vector3(2,-2,-1);
-                Color = new Vector4 (255,255,255,255);
+                NewColor = new Vector4 (255,0,0,255);
                 break;
                 case 1:
                 startingPosition = new Vector3(-2,2,-1);
-                Color = new Vector4 (0,255,0,255);
+                NewColor = new Vector4 (0,255,0,255);
                 break;
                 case 2:
                 startingPosition = new Vector3(2,2,-1);
-                Color = new Vector4 (255,0,0,255);
+                NewColor = new Vector4 (0,0,255,255);
                 break;
                 case 3:
                 startingPosition = new Vector3(-2,-2,-1);
-                Color = new Vector4 (0,255,0,255);
+                NewColor = new Vector4 (0,183,146,255);
                 break;
                 default:
                 startingPosition = new Vector3(0,0,-1);
@@ -52,7 +50,8 @@ public class PlayerSpawnScript : MonoBehaviour
 
             GameObject NewPlayer = Instantiate(ShipPrefab, startingPosition, Quaternion.identity);
             NewPlayer.GetComponentInChildren<PlayerMain>().SetPlayerNumber(playerNo);
-            NewPlayer.GetComponentInChildren<SpriteRenderer>().color = Color;
+            NewPlayer.GetComponentInChildren<SpriteRenderer>().color = NewColor;
+            NewPlayer.GetComponentInChildren<Light>().color = NewColor;
             Debug.Log ("Player Spawned");
             LogicScript.ResetHealth(playerNo);
     }
