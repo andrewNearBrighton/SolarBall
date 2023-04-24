@@ -9,6 +9,8 @@ public class LogicScript : MonoBehaviour
     private static bool[] playerRespawning = new bool[4] {false,false,false,false};
     public static int maxHealth = 100;
 
+    private static bool pausedStatus;
+
     
     public static int[] playersHealth = new int[4] {maxHealth,maxHealth,maxHealth,maxHealth};
     public static float[] respawnTimers = new float[4] {0,0,0,0};
@@ -16,6 +18,7 @@ public class LogicScript : MonoBehaviour
     public int scoreToAdd;
     public GameObject [] ScoreCounters;
     public GameObject ScoreSpawner;
+    bool gameSlowed;
 
     void Start()
     {
@@ -25,6 +28,19 @@ public class LogicScript : MonoBehaviour
     public void InitialisePlayersScores(int playerNo, GameObject NewCounter)
     {
         ScoreCounters[playerNo] = NewCounter;
+    }
+
+    void Update()
+    {
+        if (Input.GetButton("Slow"))
+        {
+            SlowGame();
+        }
+
+        if (Input.GetButton("Cancel"))
+        {
+            ChangePausedStatus();
+        }
     }
 
     public int GetNumberOfPlayers()
@@ -79,4 +95,36 @@ public class LogicScript : MonoBehaviour
         ScoreCounters[playerNumber].GetComponent<Text>().text = playersScore[playerNumber].ToString();
     }
 
+    public void ChangePausedStatus ()
+    {
+        pausedStatus = !pausedStatus;
+        if (pausedStatus == false)
+        {
+            Time.timeScale = 0;
+        }
+        else
+        {
+            Time.timeScale = 1;
+        }
+
+    }
+
+    public bool GetPausedStatus()
+    {
+        return pausedStatus;
+    }
+        void SlowGame()
+    {
+        gameSlowed = !gameSlowed;
+        if (gameSlowed == true && pausedStatus == false)
+        {
+            Time.timeScale = 0.6f;
+        }
+        else          
+        {
+            Time.timeScale = 1;
+        }
+
+    }
 }
+

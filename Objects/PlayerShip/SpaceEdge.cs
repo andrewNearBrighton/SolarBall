@@ -8,6 +8,9 @@ public class SpaceEdge : MonoBehaviour
     float playerPosX;
     float playerPosY;
 
+    public float halfScreenWidth;
+    public float halfScreenHeight;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,22 +24,22 @@ public class SpaceEdge : MonoBehaviour
         playerPosX = playerShip.transform.position.x;
         playerPosY = playerShip.transform.position.y;
 
-        if (playerPosX >= 9.2)
+        if (playerPosX >= halfScreenWidth)
         {
             playerShip.transform.position = playerShip.transform.position + new Vector3((playerPosX-0.5f) * -2f,0f,0f);
         }
 
-        if (playerPosX <= -9.2)
+        if (playerPosX <= -halfScreenWidth)
         {
             playerShip.transform.position = playerShip.transform.position + new Vector3((playerPosX + 0.5f) * -2f, 0f, 0f);
         }
 
-        if (playerPosY >= 5.8)
+        if (playerPosY >= halfScreenHeight)
         {
             playerShip.transform.position = playerShip.transform.position + new Vector3(0f,(playerPosY - 0.5f) * -2f, 0f);
         }
 
-        if (playerPosY <= -5.8)
+        if (playerPosY <= -halfScreenHeight)
         {
             playerShip.transform.position = playerShip.transform.position + new Vector3(0f,(playerPosY + 0.5f) * -2f, 0f);
         }

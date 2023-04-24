@@ -9,7 +9,8 @@ public class ScoreCounterSpawner : MonoBehaviour
     public int numberOfPlayers;
 
     public GameObject ScoreCounter;
-    public float counterSpacing;
+    float counterSpacing;
+    public float constCounterSpacing;
 
     public GameObject Logic;
     public GameObject CanvasObject;
@@ -20,17 +21,18 @@ public class ScoreCounterSpawner : MonoBehaviour
 
     public void SpawnCounters()
     {
+        counterSpacing = constCounterSpacing;
         numberOfPlayers = Logic.GetComponent<LogicScript>().GetNumberOfPlayers();
         ScoreCounters = new GameObject [numberOfPlayers];
 
         for (int i=0; i < numberOfPlayers; i++)
         {
-            counterTransform = new Vector3(1800,1000 - counterSpacing,0);
+            counterTransform = new Vector3(1200,700 - counterSpacing,0);
             GameObject NewScoreCounter = Instantiate(ScoreCounter,counterTransform,Quaternion.identity);
             NewScoreCounter.GetComponent<CounterScript>().SetCounterNumber(i);
             NewScoreCounter.transform.parent = CanvasObject.transform;
             Logic.GetComponent<LogicScript>().InitialisePlayersScores(i, NewScoreCounter);
-            counterSpacing += counterSpacing;
+            counterSpacing += constCounterSpacing;
         }
 
 
